@@ -62,9 +62,7 @@ Bagels			No digit is correct."""
             clues.append('Fermi')
         elif guess[i] in secret_num:
             clues.append('Pico')
-    if clues:
-        clues.sort()
-    return ' '.join(clues) if clues else 'Bagels'
+    return ' '.join(sorted(clues)) if clues else 'Bagels'
 
 
 def main():
