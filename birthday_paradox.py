@@ -36,7 +36,7 @@ def generate_birthdays(num_birthdays: int) -> list:
 
 
 def calculate_duplicate_dates(numbers: list) -> list:
-    print(len(set(numbers)))
+    # print(len(set(numbers)))
     freq_counter = Counter(list(map(str, numbers)))
     duplicate_dates = list()
     for data in freq_counter.items():
