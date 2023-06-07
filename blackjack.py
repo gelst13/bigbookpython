@@ -5,13 +5,8 @@
  This code is available at https://nostarch.com/big-book-small-python-programming
  Tags: large, game, card game"""
 
-# Set up the constants:
-HEARTS = chr(9829)  # Character 9829 is '♥'.
-DIAMONDS = chr(9830)  # Character 9830 is '♦'.
-SPADES = chr(9824)  # Character 9824 is '♠'.
-CLUBS = chr(9827)  # Character 9827 is '♣'.
-# (A list of chr codes is at https://inventwithpython.com/charactermap)
-BACKSIDE = 'backside'
+
+
 
 def print_intro():
     print('Blackjack, by Al Sweigart al@inventwithpython.com')
