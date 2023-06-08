@@ -1,3 +1,9 @@
+
+
+
+
+
+
 import random
 import sys
 
@@ -8,6 +14,20 @@ SPADES = chr(9824)  # Character 9824 is '♠'.
 CLUBS = chr(9827)  # Character 9827 is '♣'.
 # (A list of chr codes is at https://inventwithpython.com/charactermap)
 BACKSIDE = 'backside'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def main():
@@ -95,7 +115,7 @@ def main():
         elif playerValue == dealerValue:
             print('It\'s a tie, the bet is returned to you.')
 
-        print('It\'s a tie, the bet is returned to you.')
+        input('Press Enter to continue...')
         print('\n\n')
 
 

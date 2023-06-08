@@ -22,7 +22,10 @@ class Game:
         self.bet = 0
         self.deck = deck
         self.player_cards = None
+        self.player_total = 0
         self.dealer_cards = None
+        self.dealer_total = 0
+        self.game_stops = 0
     
     @staticmethod
     def print_intro():
@@ -40,14 +43,15 @@ class Game:
           The dealer stops hitting at 17.''')
         
     def take_bet(self):
+        print('Money: ', self.money)
         print(f'How much do you bet? (100-{self.money}, or QUIT)')
         bet = input('> ')
         if bet.lower().startswith('q'):
             self.bet = 0
         else:
-            if 100 < int(bet) <= self.money:
+            if 100 <= int(bet) <= self.money:
                 self.bet = int(bet)
-                print(f'Bet: {self.bet}')
+                print(f'Bet: {self.bet}\n')
             else:
                 self.take_bet()
     
@@ -88,22 +92,82 @@ class Game:
         for row in rows:
             print(row)
     
-    def play_round(self, num):
+    def start_round(self, num):
         self.dealer_cards = self.deck.deal_hand(num)
-        print('DEALER: ', Game.count_points(self.dealer_cards))
+        self.dealer_total = Game.count_points(self.dealer_cards)
+        print('DEALER: ', self.dealer_total)
         print(*[(card.value, card.suit) for card in self.dealer_cards], sep=', ')
         Game.display_cards(self.dealer_cards)
         
         self.player_cards = self.deck.deal_hand(num)
-        print('PLAYER: ', Game.count_points(self.player_cards))
+        self.player_total = Game.count_points(self.player_cards)
+        print('PLAYER: ', self.player_total)
         print(*[(card.value, card.suit) for card in self.player_cards], sep=', ')
         Game.display_cards(self.player_cards)
     
-    def play(self):
-        self.print_intro()
-        self.play_round(2)
+    def check_total(self):
+        """A player total of 21 on the first two cards is a "natural" or "blackjack",
+        and the player wins immediately
+        unless the dealer also has one, in which case the hand ties.
+        If the total exceeds 21 points, it busts
+        Return
+        """
+        if len(self.player_cards) == 2 and self.player_total == 21:
+            self.game_stops = 1
+            if self.dealer_total == 21:
+                return 'tie'
+            else:
+                return 'player wins'
+        elif self.dealer_total > 21:
+            self.game_stops = 1
+            return 'dealer busts'
+        elif self.player_total > 21:
+            self.game_stops = 1
+            return 'player busts'
+        else:
+            return 'next turn'
         
+    def dealer_move(self):
+        """Dealer draws cards until his hand achieves a total of 17 or higher
+        If the total is 17 or more, it must stand. If the total is 16 or under, he must take a card.
+        """
+        if self.dealer_total >= 17:
+            return 'stand'
+        else:
+            return 'hit'
+    
+    @staticmethod
+    def ask_player():
+        print('(H)it, (S)tand, (D)ouble down>')
+        player_decision = input('> ')
+        if player_decision.lower().startswith('h'):
+            return 'hit'
+        elif player_decision.lower().startswith('s'):
+            return 'stand'
+        elif player_decision.lower().startswith('s'):
+            return 'double'
+    
+    def player_move(self):
+        """Player decisions: "hit" (take a card), "stand" (stop without taking a card),
+        "double" (double their wager, take a single card, and finish)."""
+        player_decision = self.ask_player()
+        print(player_decision)
+        if player_decision == 'double':
+            self.bet *= 2
+            self.game_stops = 1
+            self.check_total()
+        elif player_decision == 'hit':
+            print('take a card')
+    
+    def play(self):
+        # self.print_intro()
         self.take_bet()
+        self.start_round(2)
+        result = self.check_total()
+        print('\n', result)
+        dealer_move = self.dealer_move()
+        print('DEALER: ', dealer_move)
+        self.player_move()
 
 
 def main():

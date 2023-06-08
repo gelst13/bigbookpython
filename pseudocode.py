@@ -37,20 +37,36 @@ class Game:
         """Display all the cards in the cards list."""
         print('Display card pictures')
     
-    def play_round(self):
-        self.dealer_cards = self.deck.deal_hand(2)
+    def start_round(self, num):
+        self.dealer_cards = self.deck.deal_hand(num)
         print('DEALER: ', Game.count_points(self.dealer_cards))
         Game.display_cards(self.dealer_cards)
         print()
-        self.player_cards = self.deck.deal_hand(2)
+        self.player_cards = self.deck.deal_hand(num)
         print('PLAYER: ', Game.count_points(self.player_cards))
         Game.display_cards(self.player_cards)
     
+    def check_total(self):
+        print('check_total')
+    
+    def dealer_move(self):
+        print('dealer_move')
+    
+    def player_decision(self):
+        print('player_decision')
+    
     def play(self):
         # self.print_intro()
-        self.play_round()
-        print()
         self.take_bet()
+        print()
+        self.start_round(2)
+        print()
+        self.check_total()
+        print('\nnext turn')
+        self.dealer_move()
+        self.player_decision()
+        self.check_total()
+        
         
 
 
