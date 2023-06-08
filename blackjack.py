@@ -88,20 +88,20 @@ class Game:
         for row in rows:
             print(row)
     
-    def play_round(self):
-        self.dealer_cards = self.deck.deal_hand(2)
+    def play_round(self, num):
+        self.dealer_cards = self.deck.deal_hand(num)
         print('DEALER: ', Game.count_points(self.dealer_cards))
         print(*[(card.value, card.suit) for card in self.dealer_cards], sep=', ')
         Game.display_cards(self.dealer_cards)
         
-        self.player_cards = self.deck.deal_hand(2)
+        self.player_cards = self.deck.deal_hand(num)
         print('PLAYER: ', Game.count_points(self.player_cards))
         print(*[(card.value, card.suit) for card in self.player_cards], sep=', ')
         Game.display_cards(self.player_cards)
     
     def play(self):
         self.print_intro()
-        self.play_round()
+        self.play_round(2)
         
         self.take_bet()
 
