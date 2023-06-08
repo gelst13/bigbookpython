@@ -1,3 +1,10 @@
+"""Blackjack, by Al Sweigart al@inventwithpython.com
+ The classic card game also known as 21. (This version doesn't have
+ splitting or insurance.)
+ More info at: https://en.wikipedia.org/wiki/Blackjack
+ This code is available at https://nostarch.com/big-book-small-python-programming
+ Tags: large, game, card game"""
+
 from blackjack_deck_of_cards import Deck
 
 
@@ -17,9 +24,24 @@ class Game:
         self.player_cards = None
         self.dealer_cards = None
     
+    @staticmethod
+    def print_intro():
+        print('Blackjack, by Al Sweigart al@inventwithpython.com')
+        print('''Rules:
+          Try to get as close to 21 without going over.
+          Kings, Queens, and Jacks are worth 10 points.
+          Aces are worth 1 or 11 points.
+          Cards 2 through 10 are worth their face value.
+          (H)it to take another card.
+          (S)tand to stop taking cards.
+          On your first play, you can (D)ouble down to increase your bet
+          but must hit exactly one more time before standing.
+          In case of a tie, the bet is returned to the player.
+          The dealer stops hitting at 17.''')
+        
     def take_bet(self):
         print(f'How much do you bet? (100-{self.money}, or QUIT)')
-        bet = input()
+        bet = input('> ')
         if bet.lower().startswith('q'):
             self.bet = 0
         else:
@@ -67,25 +89,29 @@ class Game:
             print(row)
     
     def play_round(self):
-        
-        self.player_cards = self.deck.deal_hand(2)
-        print(*[(card.value, card.suit) for card in self.player_cards], sep=', ')
-        Game.display_cards(self.player_cards)
-        print(Game.count_points(self.player_cards))
-        
         self.dealer_cards = self.deck.deal_hand(2)
+        print('DEALER: ', Game.count_points(self.dealer_cards))
         print(*[(card.value, card.suit) for card in self.dealer_cards], sep=', ')
         Game.display_cards(self.dealer_cards)
-        print(Game.count_points(self.dealer_cards))
+        
+        self.player_cards = self.deck.deal_hand(2)
+        print('PLAYER: ', Game.count_points(self.player_cards))
+        print(*[(card.value, card.suit) for card in self.player_cards], sep=', ')
+        Game.display_cards(self.player_cards)
     
     def play(self):
-        
+        self.print_intro()
         self.play_round()
         
         self.take_bet()
 
 
-deck = Deck()
-deck.shuffle()
-new = Game(deck)
-Game.play(new)
+def main():
+    deck = Deck()
+    deck.shuffle()
+    new = Game(deck)
+    Game.play(new)
+
+
+if __name__ == '__main__':
+    main()
