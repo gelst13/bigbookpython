@@ -38,8 +38,8 @@ class Game:
           Cards 2 through 10 are worth their face value.
           (H)it to take another card.
           (S)tand to stop taking cards.
-          On your first play, you can (D)ouble down to increase your bet
-          but must hit exactly one more time before standing.
+          On your first play, you can (D)ouble down to double your bet:
+          player takes a single card, and finishes the round.
           In case of a tie, the bet is returned to the player.
           The dealer stops hitting at 17.''')
         
@@ -215,7 +215,7 @@ class Game:
         return True
    
     def play(self):
-        # self.print_intro()
+        self.print_intro()
         while True:
             self.clean_table()
             self.take_bet()
