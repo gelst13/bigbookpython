@@ -23,6 +23,7 @@ class Game:
         self.deck = deck
         self.player_cards = None
         self.dealer_cards = None
+        self.game_stops = 0
     
     def take_bet(self):
         print(f'How much do you bet? (100-{self.money}, or QUIT)')
@@ -32,41 +33,60 @@ class Game:
     def count_points(cards):
         print('count_points')
     
+    def show_table(self):
+        print('DEALER: ???')
+        self.display_cards()
+        print('PLAYER: ???')
+        self.display_cards()
+        
     @staticmethod
-    def display_cards(cards: list):
+    def display_cards():
         """Display all the cards in the cards list."""
-        print('Display card pictures')
+        print('''
+         ___   ___
+        |## | |## |
+        |###| |###|
+        |_##| |_##|
+         ---   --- ''')
     
     def start_round(self, num):
         self.dealer_cards = self.deck.deal_hand(num)
         print('DEALER: ', Game.count_points(self.dealer_cards))
-        Game.display_cards(self.dealer_cards)
         print()
         self.player_cards = self.deck.deal_hand(num)
         print('PLAYER: ', Game.count_points(self.player_cards))
-        Game.display_cards(self.player_cards)
     
     def check_total(self):
         print('check_total')
     
     def dealer_move(self):
         print('dealer_move')
+        return 'hit'
     
-    def player_decision(self):
-        print('player_decision')
+    def ask_player(self):
+        print('ask_player')
+        return input()
+    
+    def player_move(self):
+        player_decision = self.ask_player()
+    
     
     def play(self):
         # self.print_intro()
         self.take_bet()
         print()
         self.start_round(2)
-        print()
-        self.check_total()
-        print('\nnext turn')
-        self.dealer_move()
-        self.player_decision()
-        self.check_total()
-        
+        self.show_table()
+        result = self.check_total()
+        print('\n', result)
+        while not self.game_stops:
+            dealer_move = self.dealer_move()
+            print('DEALER: ', dealer_move)
+            self.player_move()
+            self.show_table()
+            self.check_total()
+            self.game_stops = 1
+        print('win, lost or tie. Change money +-')
         
 
 

@@ -1,24 +1,33 @@
 """
-The dealer's hand gets its first card face-up and
-a second card face-down (the hole card),
+PLAYER:  18
+('3', 'Hearts'), ('4', 'Hearts'), ('J', 'Diamonds')
+ ___   ___   ___
+|3  | |4  | |J  |
+| ♥ | | ♥ | | ♦ |
+|__3| |__4| |__J|
 
-The dealer's points are hidden until the end
 
-(H)it, (S)tand, (D)ouble down> h
-You drew a 6 of ♥.
+ next turn
+DEALER:  stand
+(H)it, (S)tand, (D)ouble down>
+> s
+PLAYER:  stand
 
-It's a tie, the bet is returned to you.
-Press Enter to continue...
+-- what to do if dealer and player stand?
 
-****
-PLAYER: 21
- ___   ___
-|Q  |
-| ♥ |
-|__Q|
-
-Press Enter to continue...
-
-Dealer hits...
-****
 """
+
+'''
+DEALER:  16
+
+PLAYER:  20
+
+
+
+ next turn
+MONEY:  4900
+Press Enter to continue...
+
+- where's ask player?
+where's result?'''
+
